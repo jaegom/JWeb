@@ -19,7 +19,7 @@ public class JWebController {
 	@RequestMapping("/sbb")
 	@ResponseBody
 	public String index() {
-		return "Hello World";
+		return "Hello World at Bitek";
 	}
 	
 	
