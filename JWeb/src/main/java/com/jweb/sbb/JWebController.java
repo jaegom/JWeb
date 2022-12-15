@@ -19,7 +19,7 @@ public class JWebController {
 	@RequestMapping("/sbb")
 	@ResponseBody
 	public String index() {
-		return "Hello World at Bitek, now it is on Tomcat";
+		return "Hello World at Bitek. Time to Run!!";
 	}
 	
 	
