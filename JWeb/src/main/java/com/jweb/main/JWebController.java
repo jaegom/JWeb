@@ -1,4 +1,4 @@
-package com.jweb.sbb;
+package com.jweb.main;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,13 +25,13 @@ public class JWebController {
 	}
 	
 	
-	@RequestMapping("/bbs")
+	@RequestMapping("/index.do")
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView();
 		
 		// application.properties에 명시해놓은 
 		// /WEB-INF/views/index.jsp
-		mav.setViewName("jason");
+		mav.setViewName("index");
 		mav.addObject("message", "어서오시게");
 
 		return mav;		
