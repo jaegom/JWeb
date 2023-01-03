@@ -12,9 +12,9 @@ public class BbsController {
 	
 	public BbsController() {
 		// TODO Auto-generated constructor stub
+		super();
 		System.out.println("---BbsController() 객체 생성됨.");
 	}
-	
 	
 	
 	//form에서는 post방식으로 호출 가능. GET, POST 선택할 수 있다.
@@ -83,7 +83,9 @@ public class BbsController {
 	
 	*/
 	
-} //class end
+} 
+
+//class end
 
 
 /*
