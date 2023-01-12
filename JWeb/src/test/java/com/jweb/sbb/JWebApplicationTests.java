@@ -7,15 +7,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+//QuestionRepository가 Question 객체를 조회하고 DB 세션이 바로 끊기지 않도록..
+import javax.transaction.Transactional; 
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.jweb.main.Answer;
-import com.jweb.main.AnswerRepository;
 import com.jweb.main.JWebApplication;
-import com.jweb.main.Question;
-import com.jweb.main.QuestionRepository;
+import com.jweb.sbb.answer.Answer;
+import com.jweb.sbb.answer.AnswerRepository;
+import com.jweb.sbb.question.Question;
+import com.jweb.sbb.question.QuestionRepository;
 
 @SpringBootTest(classes = JWebApplication.class)
 class JWebApplicationTests {
@@ -25,10 +28,12 @@ class JWebApplicationTests {
 	
 	@Autowired
 	private AnswerRepository answerRepository;
-
+	
+	@Transactional
 	@Test
 	void testJpa() {
-		/*
+		/* 질문등록
+		 * 
 		Question q1 = new Question();
 		q1.setSubject("sbb가 무엇인가요?");
         q1.setContent("sbb에 대해서 알고 싶습니다.");
@@ -43,7 +48,8 @@ class JWebApplicationTests {
         */
 		
 		
-		/*
+		/* 질문의 개수가 2개인가?
+		 * 
         List<Question> all = this.questionRepository.findAll();
         assertEquals(2, all.size());
 
@@ -51,7 +57,8 @@ class JWebApplicationTests {
         assertEquals("sbb가 무엇인가요?", q.getSubject());
 		*/
         
-		/*
+		/* id가 2인 질문 찾기
+		 * 
         Optional<Question> oq = this.questionRepository.findById(2);
         if(oq.isPresent()) {
             Question q = oq.get();
@@ -66,13 +73,15 @@ class JWebApplicationTests {
 		*
 		*/
 		
-		/*
+		/* subject로 질문 찾기
+		 * 
 	    Question q = this.questionRepository.findBySubject("sbb가 무엇인가요?"); 
         assertEquals(1, q.getId());
 		*/
 		
 		
-		/*
+		/* subject와 content로 찾기
+		 * 
         Question q = this.questionRepository.findBySubjectAndContent(
                 "sbb가 무엇인가요?", "sbb에 대해서 알고 싶습니다.");
         assertEquals(1, q.getId());
@@ -80,7 +89,8 @@ class JWebApplicationTests {
 		*/
 		
 		
-		/*
+		/* 질문 리스트에서 특정 문자열을 포함한 제목인 질문을 찾기
+		 * 
         List<Question> qList = this.questionRepository.findBySubjectLike("sbb%");
         Question q = qList.get(0);
       
@@ -109,7 +119,8 @@ class JWebApplicationTests {
 		
 		*/
 		
-		
+		/* 
+		 * 답변 생성
 		Optional<Question> oq = this.questionRepository.findById(2);
 		assertTrue(oq.isPresent());
 		Question q = oq.get();
@@ -119,6 +130,26 @@ class JWebApplicationTests {
 		a.setQuestion(q); //어떤 질문의 답변인지 알기 위해 Question 객체가 필요하다.
 		a.setCreateDate(LocalDateTime.now());
 		this.answerRepository.save(a);
+		*/
+		
+		/*
+		 * 
+        Optional<Answer> oa = this.answerRepository.findById(1);
+        assertTrue(oa.isPresent());
+        Answer a = oa.get();//id가 1인 Answer 객체 받아옴
+        assertEquals(2, a.getQuestion().getId());
+		
+		*/
+		
+		Optional<Question> oq = this.questionRepository.findById(2);
+		assertTrue(oq.isPresent());
+		Question q = oq.get();
+		
+		List<Answer> answerList = q.getAnswerList();
+		
+		assertEquals(1, answerList.size());
+		assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
+		
 		
 	}
 

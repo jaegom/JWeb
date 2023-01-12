@@ -1,4 +1,4 @@
-package com.jweb.main;
+package com.jweb.sbb.question;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.jweb.main;
+package com.jweb.sbb.question;
 
 import java.time.LocalDateTime; 
 import java.util.List;
@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.jweb.sbb.answer.Answer;
 
 /*
  * 스프링 3.0.0 버전
