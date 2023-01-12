@@ -1,5 +1,7 @@
 package com.jweb.main;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
@@ -11,9 +13,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *	(Integer)을 지정해야 한다. 이것은 JpaRepository를 생성하기 위한 규칙이다.
  */
 
+
+
+//실제로 사용하려면 객체를 생성하여 함수들을 정의해야하지만, 스프링부트가 알아서 만들어줌 (DI)
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
 	
-	
-	
+	 Question findBySubject(String subject);
+	 Question findBySubjectAndContent(String subject, String content);
+	 List<Question> findBySubjectLike(String subject);
+	 
 	
 }
