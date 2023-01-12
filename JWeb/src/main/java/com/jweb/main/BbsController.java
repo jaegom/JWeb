@@ -1,22 +1,24 @@
-package com.jweb.bbs;
+package com.jweb.main;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class BbsController {
 	
 	public BbsController() {
 		// TODO Auto-generated constructor stub
-		super();
 		System.out.println("---BbsController() 객체 생성됨.");
 	}
 	
+	@RequestMapping("/bbs")
+	@ResponseBody
+	public String hi() {
+		return "From BbsController";
+	}
 	
+}
 	//form에서는 post방식으로 호출 가능. GET, POST 선택할 수 있다.
 	
 	//@RequestMapping(value = "/bbs/create.do", method = RequestMethod.GET)
@@ -83,9 +85,9 @@ public class BbsController {
 	
 	*/
 	
-} 
 
-//class end
+
+//} class end
 
 
 /*
