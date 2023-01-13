@@ -31,7 +31,11 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'	
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    //타임리프
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 }
 
 //developmentOnly 라이브러리는 배포 시 (war, jar) 포함이 되지 않는다.
