@@ -1,4 +1,4 @@
-package com.jweb.main;
+package com.jweb.sbb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

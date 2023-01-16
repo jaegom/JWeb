@@ -1,6 +1,6 @@
 package com.jweb.sbb.answer;
 
-import java.time.LocalDateTime; 
+import java.time.LocalDateTime;  
 //import java.util.List;
 
 import javax.persistence.Column;

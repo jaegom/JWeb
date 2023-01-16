@@ -1,4 +1,4 @@
-package com.jweb.main;
+package com.jweb.sbb;
 
 import java.util.List;
 
@@ -34,9 +34,13 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class QuestionController {
 	
+	/**
+	 * @author 박재식
+	 * 
+	 * 스프링빈 등록이 계속 안 됐었는데, 결국 패키지 디렉토리 문제였음.
+	 * Lombok이나 생성자 주입 등 다 잘 됐음.
+	 */
 	private final QuestionRepository questionRepository;
-	
-	
 	
 	@GetMapping("/question/list")
 	//@ResponseBody
@@ -46,7 +50,13 @@ public class QuestionController {
         return "question_list";
 	}
 	
-	
+	/*
+	@GetMapping("/question/list")
+	//@ResponseBody
+	public String list() {
+		return "question_list";
+	}
+	*/
 	
 	
 }

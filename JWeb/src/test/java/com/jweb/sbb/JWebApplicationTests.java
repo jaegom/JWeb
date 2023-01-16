@@ -14,11 +14,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.jweb.main.JWebApplication;
+import com.jweb.sbb.JWebApplication;
 import com.jweb.sbb.answer.Answer;
 import com.jweb.sbb.answer.AnswerRepository;
 import com.jweb.sbb.question.Question;
 import com.jweb.sbb.question.QuestionRepository;
+
+
 
 @SpringBootTest(classes = JWebApplication.class)
 class JWebApplicationTests {
@@ -154,6 +156,7 @@ class JWebApplicationTests {
 	}
 
 }
+
 
 
 
