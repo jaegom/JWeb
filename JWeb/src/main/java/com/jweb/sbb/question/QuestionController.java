@@ -1,9 +1,12 @@
-package com.jweb.sbb;
+package com.jweb.sbb.question;
 
-import java.util.List; 
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.jweb.sbb.question.Question;
-import com.jweb.sbb.question.QuestionRepository;
-import com.jweb.sbb.question.QuestionService;
+import com.jweb.sbb.answer.AnswerForm;
 
 import lombok.RequiredArgsConstructor;
 
@@ -51,7 +52,7 @@ public class QuestionController {
 	
 	//서비스에서 바로 엔티티(Question Answer)를 조작하면 원천 훼손 가능성이 있기 때문에 DTO 객체를 이용한다.
 	//여기선 안 함.
-	private final QuestionService questionService; 
+	private final QuestionService questionService;
 	
 	@GetMapping("/list")
 	//@ResponseBody
@@ -61,26 +62,60 @@ public class QuestionController {
         return "thymeleaf/question_list";
 	}
 	
+	
+	//Get방식이어도 answerForm 객체가 필요해
 	@GetMapping(value = "/detail/{id}")
-	public String detail(Model model, @PathVariable("id") Integer id) {
+	public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
 		Question question = this.questionService.getQuestion(id);
 		model.addAttribute("question", question);
 		return "thymeleaf/question_detail";
 	}
 	
-	/*
-	@GetMapping("/question/list")
-	//@ResponseBody
-	public String list() {
-		return "question_list";
-	}
-	*/
 	
+	@GetMapping("/create")
+	public String questionCreate(QuestionForm questionForm) {
+		return "thymeleaf/question_form";
+	}
+	
+	
+	/*공백 방지 -> QuestionForm.content, subject
+	 * 
+	 *BindingResult 매개변수는 Valid 검증과정을 거친 클래스 
+	 * 
+	 */
 	@PostMapping("/create")
-    public String questionCreate(@RequestParam String subject, @RequestParam String content) {
-        //TODO 질문 저장
-		return "redirect:thymeleaf/question_form";
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			return "thymeleaf/question_form";
+		}
+		
+		this.questionService.create(questionForm.getSubject(), questionForm.getContent());
+		return "redirect:/question/list"; //@RequestMapping의 value값이랑 무관..리디렉팅 URL을 그대로 적어준다.
     }
 	
 	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
