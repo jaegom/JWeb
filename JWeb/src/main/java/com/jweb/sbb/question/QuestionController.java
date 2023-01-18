@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,15 +55,6 @@ public class QuestionController {
 	//여기선 안 함.
 	private final QuestionService questionService;
 	
-	@GetMapping("/list")
-	//@ResponseBody
-	public String list(Model model) {
-		List<Question> questionList = this.questionService.getList();
-        model.addAttribute("questionList", questionList);
-        return "thymeleaf/question_list";
-	}
-	
-	
 	//Get방식이어도 answerForm 객체가 필요해
 	@GetMapping(value = "/detail/{id}")
 	public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
@@ -94,6 +86,14 @@ public class QuestionController {
 		return "redirect:/question/list"; //@RequestMapping의 value값이랑 무관..리디렉팅 URL을 그대로 적어준다.
     }
 	
+	
+	@GetMapping("/list")
+	//@ResponseBody
+	public String list(Model model, @RequestParam(value="page", defaultValue = "0") int page) {
+		Page<Question> paging = this.questionService.getList(page);
+        model.addAttribute("paging", paging);
+        return "thymeleaf/question_list";
+	}
 	
 	
 	

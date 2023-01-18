@@ -19,6 +19,7 @@ import com.jweb.sbb.answer.Answer;
 import com.jweb.sbb.answer.AnswerRepository;
 import com.jweb.sbb.question.Question;
 import com.jweb.sbb.question.QuestionRepository;
+import com.jweb.sbb.question.QuestionService;
 
 
 
@@ -31,9 +32,18 @@ class JWebApplicationTests {
 	@Autowired
 	private AnswerRepository answerRepository;
 	
-	@Transactional
+	@Autowired
+	private QuestionService questionService;
+	
 	@Test
 	void testJpa() {
+		
+		for (int i = 1; i <= 300; i++) {
+	        String subject = String.format("테스트 데이터입니다:[%03d]", i);
+	        String content = "내용무";
+	        this.questionService.create(subject, content);
+	    }
+	}
 		/* 질문등록
 		 * 
 		Question q1 = new Question();
@@ -143,19 +153,21 @@ class JWebApplicationTests {
 		
 		*/
 		
+		/*
 		Optional<Question> oq = this.questionRepository.findById(2);
-		assertTrue(oq.isPresent());
+		 assertTrue(oq.isPresent());
 		Question q = oq.get();
 		
 		List<Answer> answerList = q.getAnswerList();
 		
 		assertEquals(1, answerList.size());
 		assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
+		*/
 		
 		
 	}
-
-}
+	
+	
 
 
 

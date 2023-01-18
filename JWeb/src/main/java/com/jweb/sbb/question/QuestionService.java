@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.jweb.sbb.DataNotFoundException;
@@ -17,8 +21,12 @@ public class QuestionService {
 	
 	private final QuestionRepository questionRepository;
 	
-	public List<Question> getList() {
-		return this.questionRepository.findAll(); //findAll = select * 
+	public void create(String subject, String content) {
+		Question q = new Question();
+		q.setSubject(subject);
+		q.setContent(content);
+		q.setCreateDate(LocalDateTime.now());
+		this.questionRepository.save(q);
 	}
 	
 	public Question getQuestion(Integer id) {
@@ -30,13 +38,20 @@ public class QuestionService {
 		}
 	}
 	
-	public void create(String subject, String content) {
-		Question q = new Question();
-		q.setSubject(subject);
-		q.setContent(content);
-		q.setCreateDate(LocalDateTime.now());
-		this.questionRepository.save(q);
+	public Page<Question> getList(int page) {
+		
+		
+		//역순 정렬
+		List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createDate")); //작성일시 기준으로 역순정렬
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+        return this.questionRepository.findAll(pageable);
+		
+		/*
+		Pageable pageable = PageRequest.of(page, 10); 
+		return this.questionRepository.findAll(pageable); //findAll = select * 
+		*/
 	}
 	
-	
+
 }
