@@ -13,14 +13,25 @@
 		
 		<tbody>
 			<tr th:each="question, loop : ${paging}">
-				<td th:text="${loop.count}"></td>
+			
+				<!-- 번호 = 전체 게시물 개수 - (현재 페이지 * 페이지당 게시물 개수) - 나열 인덱스 -->
+				<td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
 				<td>
 					<!-- 문자열 concat -->
-					<a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+					<a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}">
+					</a>
+					
+					<span class="text-danger small ms-2"
+                        th:if="${#lists.size(question.answerList) > 0}" 
+                        th:text="${#lists.size(question.answerList)}">
+                    </span>
+                    
 				</td>
+				
 				<td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
 			</tr>
 		</tbody>
+		
 	</table>
 	
 	<!-- 페이징 처리 시작 -->
@@ -41,6 +52,7 @@
             	
             	th:classappend="${page == paging.number} ? 'active'" 
                 class="page-item">
+                
                 <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
             </li>
 
