@@ -1,6 +1,6 @@
 package com.jweb.sbb;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals; 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 //QuestionRepository가 Question 객체를 조회하고 DB 세션이 바로 끊기지 않도록..
-import javax.transaction.Transactional; 
+import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
