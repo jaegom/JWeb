@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.jweb.sbb.question.Question;
+import com.jweb.sbb.user.SiteUser;
 
 /* 
  * 스프링 3.0.0 버전
@@ -45,4 +46,7 @@ public class Answer {
 
     @ManyToOne
     private Question question;
+    
+    @ManyToOne
+    private SiteUser author;
 }
