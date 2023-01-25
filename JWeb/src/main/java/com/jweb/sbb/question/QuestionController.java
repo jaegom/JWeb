@@ -1,10 +1,12 @@
 package com.jweb.sbb.question;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jweb.sbb.answer.AnswerForm;
+import com.jweb.sbb.user.SiteUser;
+import com.jweb.sbb.user.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -54,6 +58,7 @@ public class QuestionController {
 	//서비스에서 바로 엔티티(Question Answer)를 조작하면 원천 훼손 가능성이 있기 때문에 DTO 객체를 이용한다.
 	//여기선 안 함.
 	private final QuestionService questionService;
+	private final UserService userService;
 	
 	//Get방식이어도 answerForm 객체가 필요해
 	@GetMapping(value = "/detail/{id}")
@@ -63,7 +68,7 @@ public class QuestionController {
 		return "thymeleaf/question_detail";
 	}
 	
-	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/create")
 	public String questionCreate(QuestionForm questionForm) {
 		return "thymeleaf/question_form";
@@ -75,14 +80,18 @@ public class QuestionController {
 	 *BindingResult 매개변수는 Valid 검증과정을 거친 클래스 
 	 * 
 	 */
+
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create")
-    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) {
 		
 		if (bindingResult.hasErrors()) {
 			return "thymeleaf/question_form";
 		}
 		
-		this.questionService.create(questionForm.getSubject(), questionForm.getContent());
+		SiteUser siteUser = this.userService.getUser(principal.getName());
+		this.questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
+
 		return "redirect:/question/list"; //@RequestMapping의 value값이랑 무관..리디렉팅 URL을 그대로 적어준다.
     }
 	
