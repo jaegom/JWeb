@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import com.jweb.sbb.question.Question;
-import com.jweb.sbb.user.SiteUser;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,13 +14,12 @@ public class AnswerService {
 	
 	private final AnswerRepository answerRepository;
 	
-	public void create(Question question, String content, SiteUser author) {
+	public void create(Question question, String content) {
 		
 		Answer answer = new Answer();
 		answer.setContent(content);
 		answer.setCreateDate(LocalDateTime.now());
 		answer.setQuestion(question);
-		answer.setAuthor(author);
 		this.answerRepository.save(answer);
 	}
 	
