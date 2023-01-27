@@ -11,8 +11,9 @@
 				
 				<!-- 질문 내용 -->
 				<!-- <div class="card-text" style="white-space: pre-line;" th:text="${question.content}"></div> -->
+				
 				<!-- 질문 내용에 마크다운 적용 th:utext는 이스케이프 제거 -->
-				<div class="card-text" th:utext="${@commonUtil.markdown(answer.content)}"></div>
+			    <div class="card-text" th:utext="${@commonUtil.markdown(question.content)}"></div>
 
 				<!-- 질문이 수정된 날짜 표시 -->
 				<div class="d-flex justify-content-end">
@@ -72,7 +73,8 @@
 			<div class="card-body">
 			
 				<!-- 답변의 내용 -->
-				<!-- <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div> -->
+				<!-- <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div> --> 
+				
 				<!-- 답변 내용에 마크다운 적용, th:utext는 이스케이프 제거 -->
 				<div class="card-text" th:utext="${@commonUtil.markdown(answer.content)}"></div>
 				
